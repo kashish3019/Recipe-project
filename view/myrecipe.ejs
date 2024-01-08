@@ -2,144 +2,144 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Recipe</title>
-    <style>
-        body {
-          font-family: Arial, sans-serif;
-          margin: 0;
-          padding: 0;
-          background-color: #f5f5f5;
-        }
-    
-        #box {
-          justify-content: center;
-          align-items: center;
-          margin-top: 20px;
-          text-align: left;
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          height: auto;
-          width: auto;
-        }
-    
-        #box div {
-          border: 1px solid black;
-          margin: 20px;
-          align-items: center;
-          padding: 20px;
-          padding-left: 45px;
-          border-radius: 8px;
-        }
-    
-        img {
-          width: 100%;
-          border-radius: 8px;
-          margin-bottom: 15px;
-        }
-        h1{
-            text-align: center;
-            font-weight: 200;
-        }
-        #box h2 {
-          font-size: 1.5em;
-          margin-bottom: 10px;
-        }
-    
-        #box h3 {
-          font-size: 1.1em;
-          color: #555;
-          margin-bottom: 5px;
-        }
-    
-        #box img {
-          width: 250px;
-          height: 300px;
-        }
-      </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Recipe</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    #box {
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      text-align: left;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      height: auto;
+      width: auto;
+    }
+
+    #box div {
+      border: 1px solid black;
+      margin: 20px;
+      align-items: center;
+      padding: 20px;
+      padding-left: 45px;
+      border-radius: 8px;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      text-align: center;
+      font-weight: 200;
+    }
+
+    #box h2 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    #box h3 {
+      font-size: 1.1em;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    #box img {
+      width: 250px;
+      height: 300px;
+    }
+    #box div button{
+      margin: 20px;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: #dba887;
+    }
+    #box div button:hover{
+      background-color: #be6022;
+    }
+  </style>
 </head>
 
 <body>
-    <%- include('nav') %>
+  <%- include('nav') %>
     <h1>My Recipes</h1>
     <div id="box">
-        <% recipes.forEach(recipe => { %>
-            <div>
-                <img src="<%= recipe.img %>" alt="<%= recipe.name %>">
-                <h2><%= recipe.name %></h2>
-                <h3>Description: <%= recipe.description %></h3>
-                <h3>Price: <%= recipe.price %></h3>
-                <button onclick="recipeupd('<%= recipe._id %>')">Update</button>
-                <button onclick="recipedel('<%= recipe._id %>')">Delete</button>
-            </div>
-        <% }) %>
     </div>
 </body>
 <script>
-    const recipedel = (id) => {
-        fetch(`/recipe/recipedelete/${id}`, {
-            method: 'DELETE',
-        })
-    }
-    const recipeupd = (id) => {
-        fetch(`/recipe/recipeupdate/${id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(recipeupd)
-        })
-    }
-    const display = (data) => {
-        document.getElementById("box").innerHTML = "";
-        data.map((ele) => {
-            img = document.createElement("img");
-            img.innerHTML = ele.img;
+   const recipedel=(id)=>{
+  fetch(`/recipe/recipedelete/${id}`,{
+          method: 'DELETE',
+      })
+  }
+  const recipeupd=(id)=>{
+      fetch(`/recipe/recipeupdate/${id}`,{
+          method: 'PATCH',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(recipeupd)
+      })
+  }
+  const display = (data) => {
+    document.getElementById("box").innerHTML = "";
+    data.map((ele) => {
+      let img = document.createElement("img");
+      img.src = ele.img;
 
-            name = document.createElement("h2");
-            name.innerHTML = ele.name;
+      let name = document.createElement("h2");
+      name.innerHTML = `name :${ele.name}`;
 
-            description = document.createElement("h3");
-            description.innerHTML = ele.description;
+      let description = document.createElement("h3");
+      description.innerHTML = `desc :${ele.description}`;
 
-            price = document.createElement("h3");
-            price.innerHTML = ele.price;
+      let price = document.createElement("h3");
+      price.innerHTML = `price :${ele.price}`;
 
-            colour = document.createElement("h3");
-            colour.innerHTML = ele.colour;
+      let colour = document.createElement("h3");
+      colour.innerHTML =`colour :${ele.colour}`
 
-            qty = document.createElement("h3");
-            qty.innerHTML = ele.qty;
+      let qty = document.createElement("h3");
+      qty.innerHTML =`qty :${ele.qty}`;
 
-            flavour = document.createElement("h3");
-            flavour.innerHTML = ele.flavour;
+      let flavour = document.createElement("h3");
+      flavour.innerHTML = `flavour :${ele.flavour}` ;
 
-            btn1 = document.createElement("button");
-            btn1.innerHTML = "Update";
-            btn1.addEventListener("click", () => recipeupd(ele._id));
+      let btn1 = document.createElement("button");
+      btn1.innerHTML = "Update";
+      btn1.addEventListener("click", () => recipeupd(ele._id));
 
-            btn2 = document.createElement("button");
-            btn2.innerHTML = "Delete";
-            btn2.addEventListener("click", () => recipedel(ele._id));
+      let btn2 = document.createElement("button");
+      btn2.innerHTML = "Delete";
+      btn2.addEventListener("click", () => recipedel(ele._id));
 
+      let div = document.createElement("div");
+      div.append(img, name, description, price, colour, qty, flavour, btn1, btn2);
 
-            div = document.createElement("div");
-            div.append(img, name, description, price, colour,qty,flavour,btn1, btn2);
+      document.getElementById("box").append(div);
+    })
+  }
 
-            document.getElementById("box").append(div);
-        })
-    }
+  const get = () => {
 
-    const get = () => {
-
-        fetch(`/recipe/myrecipe`)
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data)
-                display(data)
-            })
-            .catch((err) => console.log(err))
-    }
-    get();
+    fetch(`/recipe/myrecipe`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        display(data)
+      })
+      .catch((err) => console.log(err))
+  }
+  get();
 </script>
 
 </html>

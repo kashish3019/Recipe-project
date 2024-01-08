@@ -17,8 +17,9 @@ const recipeForm=(req,res)=>{
 
 const recipedata=async(req,res)=>{
     const {img,name,description,price,colour,qty,flavour}=req.body;
+    console.log(req.user);
     try{
-        let data=await recipe.create({img,name,description,price,colour,qty,flavour})
+        let data=await recipe.create({img,name,description,price,colour,qty,flavour,createdBy:req.user.id})
        res.send(data);
     }
     catch(err){
@@ -27,14 +28,17 @@ const recipedata=async(req,res)=>{
 }   
 
 
-const myrecipe=async(req,res)=>{
-    try {
-        let data = await recipe.find();
-        res.render("myrecipe", { recipes: data }); // Pass the 'data' to the EJS file
-    } catch (err) {
-        res.status(500).send({ error: err.message });
-    }
+const myrecipepage = (req,res)=>{
+    res.render("myrecipe")
 }
+
+const recipeuser= async(req,res)=>{
+   let data=await recipe.find({createdBy:req.user.id});
+
+   console.log(data,req.user);
+   res.send(data);
+}
+
 
 const recipeDelete= async(req,res)=>{
     try {
@@ -50,7 +54,7 @@ const recipeupdate = async (req, res) => {
     try {
         let {id} = req.params;
         let data = await recipe.findById(id)
-        res.render('taskform',{data, edit:true});
+        res.render('recipeForm',{data, edit:true});
     } catch (error) {
         return res.send({Error : error.message});
     }
@@ -89,4 +93,4 @@ const comment = async(req,res)=>{
     }
 }
 
-module.exports = {recipeList,recipedata,recipeForm,myrecipe,recipeDelete,recipeupdate,recipeup,comment}
+module.exports = {myrecipepage,recipeList,recipedata,recipeForm,recipeuser,recipeDelete,recipeupdate,recipeup,comment}

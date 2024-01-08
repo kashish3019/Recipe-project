@@ -19,8 +19,8 @@
 }
 
 #parent-box .list{
-    margin: 20px;
-    padding: 20px;
+    /* margin: 20px; */
+    /* padding: 20px; */
     background-color: #EDECE7;
     /* display: flex; */
     transition: transform 0.2s;
@@ -38,17 +38,17 @@
 #parent-box .list .category{
     color: #A5394E;
     font-weight: 500;
-    padding: 10px 0px;
+    /* padding: 10px 0px; */
 }
 
 #parent-box .list .content{
     font-weight: 700;
-    margin: 5px 0px;
+    /* margin: 5px 0px; */
     white-space: nowrap; 
     width: 500px; 
     overflow: hidden;
     text-overflow: ellipsis; 
-    padding: 10px 0px;
+    /* padding: 10px 0px; */
     /* color: #4f585e; */
 }
 

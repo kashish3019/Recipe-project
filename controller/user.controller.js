@@ -56,6 +56,10 @@ const login = async(req,res)=>{
     }
 }
 
-module.exports = {signup,getsignup,getlogin,login}
+const logout = (req, res) => {
+    res.clearCookie('token').send({ message: 'Logout successful' });
+}
+
+module.exports = {signup,getsignup,getlogin,login,logout}
 
 

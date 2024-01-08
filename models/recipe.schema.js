@@ -11,7 +11,7 @@ const recipeSchema=new mongoose.Schema({
     text: String,
     username: String,
     date: { type: Date, default: Date.now } }],
-   createdBy:[{type:mongoose.Types.ObjectId,ref:"user"}],
+   createdBy:{type:mongoose.Types.ObjectId,ref:"user"},
 })
 
 const recipe = mongoose.model('recipe',recipeSchema)
