@@ -60,7 +60,6 @@
       height: 300px;
     }
     #box div button{
-      margin: 20px;
       padding: 10px;
       border-radius: 10px;
       background-color: #dba887;
@@ -81,15 +80,9 @@
    const recipedel=(id)=>{
   fetch(`/recipe/recipedelete/${id}`,{
           method: 'DELETE',
-      })
+      }).then((e)=>get())
   }
-  const recipeupd=(id)=>{
-      fetch(`/recipe/recipeupdate/${id}`,{
-          method: 'PATCH',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(recipeupd)
-      })
-  }
+
   const display = (data) => {
     document.getElementById("box").innerHTML = "";
     data.map((ele) => {
@@ -114,16 +107,13 @@
       let flavour = document.createElement("h3");
       flavour.innerHTML = `flavour :${ele.flavour}` ;
 
-      let btn1 = document.createElement("button");
-      btn1.innerHTML = "Update";
-      btn1.addEventListener("click", () => recipeupd(ele._id));
 
       let btn2 = document.createElement("button");
       btn2.innerHTML = "Delete";
       btn2.addEventListener("click", () => recipedel(ele._id));
 
       let div = document.createElement("div");
-      div.append(img, name, description, price, colour, qty, flavour, btn1, btn2);
+      div.append(img, name, description, price, colour, qty, flavour, btn2);
 
       document.getElementById("box").append(div);
     })
